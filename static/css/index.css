@@ -104,6 +104,17 @@ h2.title {
   border-bottom: 1px solid var(--border-color);
 }
 
+.hero.is-light a {
+  /* do not inherit color */
+  color: #0ea5e9 !important;
+  font-weight: 600;
+}
+
+.hero.is-light a:hover {
+  color: #061f2b !important;
+  text-decoration: underline;
+}
+
 .hero-body {
   padding: 4rem 1.5rem;
 }
@@ -208,6 +219,12 @@ h2.title {
 .author-block {
   display: inline-block;
   margin-right: 0.5rem;
+}
+
+.logo_hurizon {
+  width: 10%;
+  min-width: 160px;
+  height: auto;
 }
 
 .publication-banner img {
