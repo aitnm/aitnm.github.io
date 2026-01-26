@@ -227,6 +227,12 @@ h2.title {
   height: auto;
 }
 
+.logo_nkfia {
+  width: 12%;
+  min-width: 210px;
+  height: auto;
+}
+
 .publication-banner img {
   border-radius: var(--border-radius-lg);
   box-shadow: var(--shadow-lg);
