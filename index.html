@@ -264,6 +264,46 @@
 
     <script>
       document.getElementById("year").textContent = new Date().getFullYear();
+
+      function copyBibTeX() {
+        const bibtexElement = document.getElementById('bibtex-code');
+        const button = document.querySelector('.copy-bibtex-btn');
+        const copyText = button ? button.querySelector('.copy-text') : null;
+
+        if (!bibtexElement || !button || !copyText) return;
+
+        const textToCopy = bibtexElement.textContent.trim();
+
+        const showCopiedState = function() {
+          button.classList.add('copied');
+          copyText.textContent = 'Cop';
+          setTimeout(function() {
+            button.classList.remove('copied');
+            copyText.textContent = 'Copy';
+          }, 2000);
+        };
+
+        const fallbackCopy = function() {
+          const textArea = document.createElement('textarea');
+          textArea.value = textToCopy;
+          textArea.style.position = 'fixed';
+          textArea.style.left = '-9999px';
+          document.body.appendChild(textArea);
+          textArea.select();
+          document.execCommand('copy');
+          document.body.removeChild(textArea);
+          showCopiedState();
+        };
+
+        if (navigator.clipboard && window.isSecureContext) {
+          navigator.clipboard.writeText(textToCopy)
+            .then(showCopiedState)
+            .catch(fallbackCopy);
+          return;
+        }
+
+        fallbackCopy();
+      }
     </script>
   </footer>
 
