@@ -28,6 +28,11 @@
   <!-- tiny extra styling for nicer partner table spacing -->
   <style>
     .section-anchor { scroll-margin-top: 16px; }
+    .image-popup { text-decoration: none; }
+    .image-popup img { transition: transform 0.2s, filter 0.2s; }
+    .image-popup img:hover { transform: scale(1.05); filter: brightness(1.1); }
+    #imageModal.is-active { display: flex; }
+    .image-container { margin: 0; }
   </style>
 </head>
 
@@ -209,7 +214,61 @@
       </div>
     </section>
 
+    <!-- NEWS -->
+    <section class="section hero section-anchor" id="news">
+      <div class="container is-max-desktop">
+        <div class="columns is-centered has-text-centered">
+          <div class="column is-six-fifths">
+            <h2 class="title is-3">News</h2>
+            <div class="content has-text-justified">
+              <ul>
+                <li><strong>2026-03-03:</strong> <a href="https://uni.sze.hu/post/nemzetk%C3%B6zi-kiv%C3%A1l%C3%B3s%C3%A1gi-projekt-indult-a-sz%C3%A9chenyi-istv%C3%A1n-egyetemen-auton%C3%B3m-%C3%A9s-energiatakar%C3%A9kos-j%C3%A1rm%C5%B1v" target="_blank" rel="noopener">sze.hu post</a> A hungarian news article about the project.</li>
+                <li><strong>2026-01-12:</strong> AITONOMY project website launched with core project details and partner information.</li>
+                <li><strong>2025-12-19:</strong> <a href="https://nkfih.gov.hu/palyazoknak/nkfi-alap/tamogatott-projektek-2025-121-hu-rizont" target="_blank" rel="noopener">nkfih.gov.hu</a> Project announcement.</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- EVENTS -->
+    <section class="section hero is-light section-anchor" id="events">
+      <div class="container is-max-desktop">
+        <div class="columns is-centered has-text-centered">
+          <div class="column is-six-fifths">
+            <h2 class="title is-3">Events</h2>
+            <div class="content has-text-justified">
+              <ul>
+                <li><strong>Kick-off Meeting</strong> - 7<sup>th</sup>-9<sup>th</sup> May 2026 - Győr, Hungary. AITONOMY project kick-off hosted by Széchenyi István University. The meeting included project presentations, work package discussions, and a tour of the university's research facilities and the ZalaZONE testing track.
+                  Prof. Dr.-Ing. Sören Hohmann from Karlsruhe Institute of Technology and Prof.dr.ir. Pavol Bauer from Delft University of Technology joined the meeting.
+                  <br><a href="#" class="image-popup" data-image="static/images/kickoff01.png" data-alt="Kick-off Meeting">
+                    <img src="static/images/kickoff01.png" alt="Kick-off Meeting" style="max-height: 120px; margin-top: 10px; cursor: pointer; border-radius: 4px;" />
+                  </a>
+                  <a href="#" class="image-popup" data-image="static/images/kickoff02.png" data-alt="Kick-off Meeting">
+                    <img src="static/images/kickoff02.png" alt="Kick-off Meeting" style="max-height: 120px; margin-top: 10px; cursor: pointer; border-radius: 4px;" />
+                  </a>
+                </li>
+                <li><strong>Hurizon roadshow</strong> - 9<sup>th</sup> May 2026 - Pécs, Hungary</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
   </main>
+
+  <!-- Image Popup Modal -->
+  <div id="imageModal" class="modal">
+    <div class="modal-background" onclick="closeImageModal()"></div>
+    <div class="modal-content">
+      <p class="image-container">
+        <img id="modalImage" src="" alt="" style="max-height: 90vh; object-fit: contain;" />
+      </p>
+    </div>
+    <button class="modal-close is-large" onclick="closeImageModal()"></button>
+  </div>
 
   <!-- FOOTER (keeps template attribution, but cleaner) -->
 <!--BibTex citation -->
@@ -304,6 +363,35 @@
 
         fallbackCopy();
       }
+
+      function openImageModal(imageSrc, altText) {
+        const modal = document.getElementById('imageModal');
+        const modalImage = document.getElementById('modalImage');
+        modalImage.src = imageSrc;
+        modalImage.alt = altText;
+        modal.classList.add('is-active');
+      }
+
+      function closeImageModal() {
+        const modal = document.getElementById('imageModal');
+        modal.classList.remove('is-active');
+      }
+
+      document.querySelectorAll('.image-popup').forEach(link => {
+        link.addEventListener('click', function(e) {
+          e.preventDefault();
+          const imageSrc = this.getAttribute('data-image');
+          const altText = this.getAttribute('data-alt');
+          openImageModal(imageSrc, altText);
+        });
+      });
+
+      // Close modal on Escape key
+      document.addEventListener('keydown', function(e) {
+        if (e.key === 'Escape') {
+          closeImageModal();
+        }
+      });
     </script>
   </footer>
 
